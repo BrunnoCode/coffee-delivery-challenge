@@ -9,9 +9,12 @@ export function Header() {
         <img src={logoCoffee} />
 
         <HeaderButtonsContainer>
-        <HeaderButton>
+        <HeaderButton variant="purple">
         <MapPin size={20} weight="fill" />
         Belo Horizonte, MG
+        </HeaderButton>
+        <HeaderButton variant="yellow">
+        <ShoppingCart size={20} weight="fill"/>
         </HeaderButton>
         </HeaderButtonsContainer>
 
