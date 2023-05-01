@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { TitleText } from "../../../../components/Typography";
 
 export const CoffeeCardsContainer = styled.div`
   width: 100%;
@@ -28,12 +29,19 @@ export const Tags = styled.div`
   flex-wrap: wrap;
 
   span {
-    background: ${({theme}) => theme.colors["brand-yellow-light"]};
-    color: ${({theme}) => theme.colors["brand-yellow-dark"]};
-    font-size: ${({theme}) => theme.textSizes["components-tag"]};
+    background: ${({ theme }) => theme.colors["brand-yellow-light"]};
+    color: ${({ theme }) => theme.colors["brand-yellow-dark"]};
+    font-size: ${({ theme }) => theme.textSizes["components-tag"]};
     text-transform: uppercase;
     padding: 0.25rem 0.5rem;
     border-radius: 999px;
     font-weight: 700;
   }
-`
+`;
+export const Name = styled(TitleText).attrs({
+  size: "s",
+  color: "subtitle",
+  weight: 700,
+})`
+  margin-bottom: 0.5rem;
+`;

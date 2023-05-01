@@ -1,5 +1,5 @@
-import { CoffeeCardsContainer, Tags } from "./styles";
-import coffe0 from '../../../../assets/Coffee.png'
+import { CoffeeCardsContainer, Name, Tags } from "./styles";
+import coffe0 from "../../../../assets/Coffee.png";
 export function CoffeeCard() {
   return (
     <CoffeeCardsContainer>
@@ -9,6 +9,8 @@ export function CoffeeCard() {
         <span>Tradicional</span>
         <span>Com leite</span>
       </Tags>
+
+      <Name>Expresso Tradicional</Name>
     </CoffeeCardsContainer>
-  )
+  );
 }
