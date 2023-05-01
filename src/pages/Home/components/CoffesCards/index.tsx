@@ -1,6 +1,8 @@
-import { CardFooter, CoffeeCardsContainer, Description, Name, Tags } from "./styles";
+import { AddCartWrapper, CardFooter, CoffeeCardsContainer, Description, Name, Tags } from "./styles";
 import coffe0 from "../../../../assets/Coffee.png";
 import { RegularText, TitleText } from "../../../../components/Typography";
+import { AccountantInput } from "../../../../components/AccountantInput";
+import { ShoppingCart } from "phosphor-react";
 export function CoffeeCard() {
   return (
     <CoffeeCardsContainer>
@@ -19,6 +21,13 @@ export function CoffeeCard() {
           <RegularText size="s">R$</RegularText>
           <TitleText size="m" color="text" as="strong">9.90</TitleText>
         </div>
+
+        <AddCartWrapper>
+          <AccountantInput />
+          <button>
+            <ShoppingCart size={22} weight="fill"/>
+          </button>
+        </AddCartWrapper>
       </CardFooter>
     </CoffeeCardsContainer>
   );
