@@ -25,4 +25,19 @@ export const AccountInputContainer = styled.div`
 
 export const IconWrapper = styled.button.attrs({
   type: "button",
-})``;
+})`
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  background: transparent;
+  transition: .2s;
+  color: ${({theme})=> theme.colors["brand-purple"]};
+
+  &:disabled {
+    opacity: 0.4;
+  }
+
+  &:not(:disabled):hover {
+    color: ${({theme})=> theme.colors["brand-purple-dark"]}
+  }
+`;
