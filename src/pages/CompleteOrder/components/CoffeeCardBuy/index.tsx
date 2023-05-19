@@ -1,26 +1,58 @@
 import { Trash } from "phosphor-react";
 import { AccountantInput } from "../../../../components/AccountantInput";
 import { RegularText } from "../../../../components/Typography";
-import { AddCoffeeAmountContainer, CoffeeCardBuyContainer, RemoveButton } from "./styles";
+import {
+  AddCoffeeAmountContainer,
+  CoffeeCardBuyContainer,
+  RemoveButton,
+} from "./styles";
+import { CartItem } from "../../../../contexts/CartContext";
+import { moneyFormat } from "../../../../utils/formatedMoney";
+import { useCart } from "../../../../hooks/useCart";
 
-export function CoffeeCardBuy() {
+interface CoffeeCartCardProps {
+  coffee: CartItem;
+}
+
+export function CoffeeCardBuy({ coffee }: CoffeeCartCardProps) {
+  const {changeCartItemQuantity, removeCartItem} = useCart()
+
+  function handleIncrease() {
+    changeCartItemQuantity(coffee.id, 'increase')
+  }
+
+  function handleDecrease() {
+    changeCartItemQuantity(coffee.id, 'decrease')
+  }
+
+  function handleRemove() {
+    removeCartItem(coffee.id)
+  }
+
+  const coffeeTotal = coffee.price * coffee.quantity;
+  const formattedPrice = moneyFormat(coffeeTotal);
+
   return (
     <CoffeeCardBuyContainer>
       <div>
-        <img src="https://plus.unsplash.com/premium_photo-1675435644687-562e8042b9db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGNvZmZlZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="" />
+        <img src={`/coffees/${coffee.photo}`} />
 
         <div>
-          <RegularText color="subtitle">Expresso Tradicional</RegularText>
+          <RegularText color="subtitle">{coffee.name}</RegularText>
           <AddCoffeeAmountContainer>
-            <AccountantInput />
-            <RemoveButton>
-              <Trash size={16}/>
+            <AccountantInput
+              quantity={coffee.quantity}
+              onIncrease={handleIncrease}
+              onDecrease={handleDecrease}
+            />
+            <RemoveButton onClick={handleRemove}>
+              <Trash size={16} />
               REMOVER
             </RemoveButton>
           </AddCoffeeAmountContainer>
         </div>
       </div>
-      <p>R$ 9,90</p>
+      <p>R${formattedPrice}</p>
     </CoffeeCardBuyContainer>
-  )
+  );
 }

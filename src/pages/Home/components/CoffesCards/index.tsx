@@ -10,6 +10,8 @@ import { RegularText, TitleText } from "../../../../components/Typography";
 import { AccountantInput } from "../../../../components/AccountantInput";
 import { ShoppingCart } from "phosphor-react";
 import { moneyFormat } from "../../../../utils/formatedMoney";
+import { useCart } from "../../../../hooks/useCart";
+import { useState } from "react";
 
 export interface Coffee {
   id: number;
@@ -25,11 +27,30 @@ interface CoffeeProps {
 }
 
 export function CoffeeCard({ coffee }: CoffeeProps) {
-const priceFormated = moneyFormat(coffee.price)
+  const [quantity, setQuantity] = useState(1);
+
+  function handleIcrease() {
+    setQuantity(state => state + 1)
+  }
+  function handleDecrease() {
+    setQuantity(state => state - 1)
+  }
+
+  const { addCoffeeToCart } = useCart();
+
+  function handleAddToCart() {
+    const coffeeToAdd = {
+      ...coffee,
+      quantity,
+    };
+    addCoffeeToCart(coffeeToAdd);
+  }
+
+  const priceFormated = moneyFormat(coffee.price);
 
   return (
     <CoffeeCardsContainer>
-      <img src={`/coffees/${coffee.photo}`}/>
+      <img src={`/coffees/${coffee.photo}`} />
 
       <Tags>
         {coffee.tags.map((tag) => (
@@ -38,9 +59,7 @@ const priceFormated = moneyFormat(coffee.price)
       </Tags>
 
       <Name>{coffee.name}</Name>
-      <Description>
-        {coffee.description}
-      </Description>
+      <Description>{coffee.description}</Description>
 
       <CardFooter>
         <div>
@@ -51,8 +70,12 @@ const priceFormated = moneyFormat(coffee.price)
         </div>
 
         <AddCartWrapper>
-          <AccountantInput />
-          <button>
+          <AccountantInput 
+          onIncrease={handleIcrease}
+          onDecrease={handleDecrease}
+          quantity={quantity}
+          />
+          <button onClick={handleAddToCart}>
             <ShoppingCart size={22} weight="fill" />
           </button>
         </AddCartWrapper>

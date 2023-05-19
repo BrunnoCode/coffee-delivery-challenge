@@ -1,16 +1,26 @@
 import { Minus, Plus } from "phosphor-react";
 import { AccountInputContainer, IconWrapper } from "./styles";
 
-export function AccountantInput() {
-  return(
+export interface AccountantInputProps {
+  quantity: number;
+  onIncrease: () => void;
+  onDecrease: () => void;
+}
+
+export function AccountantInput({
+  onIncrease,
+  onDecrease,
+  quantity,
+}: AccountantInputProps) {
+  return (
     <AccountInputContainer>
-      <IconWrapper>
-        <Minus size={14} weight="fill"/>
+      <IconWrapper disabled={quantity <= 1} onClick={onDecrease}>
+        <Minus size={14} weight="fill" />
       </IconWrapper>
-      <input type="number" readOnly value={1} />
-      <IconWrapper>
-        <Plus size={14} weight="fill"/>
+      <input type="number" readOnly value={quantity} />
+      <IconWrapper onClick={onIncrease}>
+        <Plus size={14} weight="fill" />
       </IconWrapper>
     </AccountInputContainer>
-  )
+  );
 }
