@@ -4,9 +4,30 @@ import biciEntregaImg from "../../assets/Illustration.png";
 import { InfoWithIcon } from "../../components/InfoIcon";
 import { Clock, CurrencyDollar, MapPin } from "phosphor-react";
 import { useTheme } from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
+import { OrderData } from "../CompleteOrder";
+import { paymentMethods } from "../CompleteOrder/components/CompleteOrderForm/PaymentMethod";
+import { useEffect } from "react";
+
+interface LocationType {
+  state: OrderData;
+}
 
 export function OrderConfirmedPage() {
   const { colors } = useTheme();
+
+  const { state } = useLocation() as unknown as LocationType;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!state) {
+      navigate("/");
+    }
+  }, []);
+
+  if (!state) return <></>
+
   return (
     <OrderConfirmedContainer className="container">
       <div>
@@ -23,9 +44,12 @@ export function OrderConfirmedPage() {
             iconBg={colors["brand-purple"]}
             text={
               <RegularText>
-                Entrega em <strong>Rua Santo Idelfonso, 334</strong>
+                Entrega em{" "}
+                <strong>
+                  {state.rua}, {state.number}
+                </strong>
                 <br />
-                Bairro Aparecida - Belo-Horizonte, MG
+                {state.bairro} - {state.cidade}, {state.uf}
               </RegularText>
             }
           />
@@ -49,7 +73,7 @@ export function OrderConfirmedPage() {
               <RegularText>
                 Pagamento na Entrega
                 <br />
-                <strong>Cartão de Crédito</strong>
+                <strong>{paymentMethods[state.paymentMethod].label}</strong>
               </RegularText>
             }
           />
