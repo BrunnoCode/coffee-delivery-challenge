@@ -1,4 +1,4 @@
-import { CurrencyDollar, MapPinLine, Money } from "phosphor-react";
+import { CurrencyDollar, MapPinLine} from "phosphor-react";
 import { TitleText } from "../../../../components/Typography";
 import { SectionTitle } from "../sectionTitle";
 import { CompleteOrderFormContainer, FormSectionContainer } from "./styles";
